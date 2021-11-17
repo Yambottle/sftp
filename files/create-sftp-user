@@ -66,10 +66,14 @@ if [ -n "$gid" ]; then
 fi
 
 useradd "${useraddOptions[@]}" "$user"
-chown 3000:999 "/home"
+chown root:root "/home"
 mkdir -p "/home/$user"
-chown "$uid":"$gid" "/home/$user"
-chmod 775 "/home/$user"
+chown root:root "/home/$user"
+chmod 755 "/home/$user"
+
+# mkdir -p "/home/$user"
+# chown root:100 "/home/$user"
+# chmod 775 "/home/$user"
 
 # Retrieving user id to use it in chown commands instead of the user name
 # to avoid problems on alpine when the user name contains a '.'
@@ -84,7 +88,8 @@ fi
 # Add SSH keys to authorized_keys with valid permissions
 userKeysQueuedDir="/home/$user/.ssh/keys"
 if [ -d "$userKeysQueuedDir" ]; then
-    userKeysAllowedFileTmp="$(mktemp)"
+    userKeysAllowedFileTmp="$(mktemp)"s
+
     userKeysAllowedFile="/home/$user/.ssh/authorized_keys"
 
     for publickey in "$userKeysQueuedDir"/*; do

@@ -10,13 +10,33 @@ UseDNS no
 
 # Limited access
 PermitRootLogin no
-X11Forwarding no
-AllowTcpForwarding no
 
 # Force sftp and chroot jail
 Subsystem sftp internal-sftp
-ForceCommand internal-sftp
-ChrootDirectory %h
+Match Group group_999
+    PasswordAuthentication yes
+    ForceCommand internal-sftp
+    ChrootDirectory %h
+    X11Forwarding no
+    AllowTcpForwarding no
+Match Group users
+    PasswordAuthentication yes
+    ForceCommand internal-sftp
+    ChrootDirectory %h
+    X11Forwarding no
+    AllowTcpForwarding no
+Match Group systemd-coredump
+    PasswordAuthentication yes
+    ForceCommand internal-sftp
+    ChrootDirectory %h
+    X11Forwarding no
+    AllowTcpForwarding no
+Match Group 999
+    PasswordAuthentication yes
+    ForceCommand internal-sftp
+    ChrootDirectory %h
+    X11Forwarding no
+    AllowTcpForwarding no
 
 # Enable this for more logs
 #LogLevel VERBOSE

@@ -1,0 +1,13 @@
+version: "2.4"
+
+services:
+  sftp:
+    image: drewyangdev/sftp:test
+    build: .
+      # context: .
+      # dockerfile: Dockerfile
+    environment:
+      - SFTP_USERS=drewyang:123123:3000:999:inbox
+    ports:
+      - "23:22"
+    # command: drewyang:123123:3000:999:inbox
